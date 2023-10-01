@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('node-sass'));
 var browserify = require('browserify');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -10,6 +10,8 @@ var path = require('path');
 var livereload = require('gulp-livereload');
 var http = require('http');
 var st = require('st');
+
+
 
 
 gulp.task('assets', function() {
