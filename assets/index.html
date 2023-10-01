@@ -3,19 +3,34 @@
 <head>
     <title>Lens Viewer for Books and Journal articles</title>
 
+    <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">
+    
     <link rel="stylesheet" type="text/css" media="all"
-          href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
 
-    <link rel='stylesheet' type='text/css' href="lib/fonts.css">
+    <link rel='stylesheet' type='text/css' href="lib/fonts.css"/>
 
 
     <!-- A combined lens.css will be generated in the bundling process -->
     <!-- While in development, separate links for each CSS file are added, so we don't need a source map -->
     <link rel="stylesheet" href="lens.css"/>
+
+   
+
     <script src="https://www.ub.uni-heidelberg.de/cdn/jquery/3.2.1/jquery.js"></script>
 
-
     <!-- MathJax Configuration -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          jax: ["input/TeX", "input/MathML","output/HTML-CSS"],
+          SVG: { linebreaks: { automatic: true }, EqnChunk: 9999  },
+          "displayAlign": "left",
+          styles: {".MathJax_Display": {padding: "0em 0em 0em 3em" },".MathJax_SVG_Display": {padding: "0em 0em 0em 3em" }}
+        });
+      </script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <!-- MathJax Configuration 
     <script type="text/x-mathjax-config">
        MathJax.Hub.Config({
          jax: ["input/TeX", "input/MathML","output/HTML-CSS"],
@@ -31,7 +46,11 @@
 
 
     </script>
+    
+
     <script type="text/javascript"     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=MML_HTMLorMML-full"></script>
+-->
+
     <script type="text/javascript">
         let locales = {
             'Author': 'Author',
@@ -48,6 +67,12 @@
 
     </script>
     <script type="text/javascript">
+
+        if ('registerProtocolHandler' in navigator) {
+           console.log('registerProtocolHandler');
+           navigator.registerProtocolHandler('web+urs', '/urs?url=%s');
+        }
+
         var qs = function () {
             var query_string = {};
             var query = window.location.search.substring(1);

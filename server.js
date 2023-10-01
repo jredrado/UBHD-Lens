@@ -58,9 +58,42 @@ app.get('/lens.css.map', function(req, res) {
   });
 });
 
+app.get('/urs', function(req, res) {
+  let url = req.query.url;
+  let pub_id = url.match(/web\+urs:(.*)/)[1];
+ 
+    var data = '';
+
+    var options = {
+      host: 'localhost',
+      path: '/pub/' + pub_id + '/resolve',
+      port: 3001
+    };
+
+    var callback = function(response) {
+      response.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      response.on('end', function () {
+        console.log(data);
+        let json_response = JSON.parse(data);
+
+        let redirect_url = '/readium-viewer/?manifest=true&href='+ encodeURIComponent(json_response[0].endpoint);
+        res.redirect(redirect_url);
+      });
+    }
+
+    var req = http.request(options, callback);
+    req.end();
+
+});
+
 // Serve files from root dir
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'assets')));
+app.use(express.static(path.join(__dirname, 'readium-viewer')));
+
 
 // Serve Lens in dev mode
 // --------
