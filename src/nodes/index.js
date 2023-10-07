@@ -6,4 +6,5 @@ module.exports = {
     "speech": require("./speech"),
     "strike": require("./strike"),
     "table": require("./table"),
+    "link": require("./link"),
 };

@@ -260,6 +260,18 @@ CustomConverter.Prototype = function () {
     }
   };
   
+  this.enhanceAnnotationData = function(state, anno, element, type) {
+    
+    anno.linktype = '';
+    
+    var extLinkType = element.getAttribute('ext-link-type') || '';
+    if (type === "ext-link" && extLinkType === "urs") {
+      //anno.url = el.getAttribute("xlink:href");
+      anno.url = 'javascript:alert("' + element.getAttribute("xlink:href") + '");';
+      anno.linktype = 'urs'
+    }
+
+  };
 
   /**
    this.enhanceVideo = function(state, node, element) {
