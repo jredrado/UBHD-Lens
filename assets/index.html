@@ -15,9 +15,16 @@
     <!-- While in development, separate links for each CSS file are added, so we don't need a source map -->
     <link rel="stylesheet" href="lens.css"/>
 
-   
 
-    <script src="https://www.ub.uni-heidelberg.de/cdn/jquery/3.2.1/jquery.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Tippy.js (opcional) -->
+    <link href="https://unpkg.com/tippy.js@6/dist/tippy.css" rel="stylesheet">
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <!-- MathJax Configuration -->
     <script type="text/x-mathjax-config">
@@ -71,6 +78,25 @@
         if ('registerProtocolHandler' in navigator) {
            console.log('registerProtocolHandler');
            navigator.registerProtocolHandler('web+urs', '/urs?url=%s');
+        }
+
+        var resolve_urs = function (urs_link){
+            api_url = 'https://3001-jredrado-rusttemplate-8sepdmxsit1.ws-eu105.gitpod.io/pub/' + urs_link + '/resolve';
+
+            $.getJSON(api_url, function(data) {
+                    // Suponiendo que el API devuelve un objeto con una propiedad 'message'
+                    //let message = data.message;
+                    console.log(data);
+                    if (data.length > 0) {
+                        Swal.fire('Cita verificada', data[0].endpoint, 'success');
+                    }else {
+                        Swal.fire('Cita', "No se ha podido resolver el enlace");
+                    }
+
+                })
+                .fail(function() {
+                    Swal.fire('Cita', "No se ha podido resolver el enlace");
+                });
         }
 
         var qs = function () {
