@@ -188,8 +188,14 @@ CustomConverter.Prototype = function () {
 
         var urs = citation.querySelector("pub-id[pub-id-type='urs'], ext-link[ext-link-type='urs']");
         if (urs){
-            citationNode.citation_urls.push({ url: urs.textContent, name: 'URS: ' + urs.textContent });
+            citationNode.citation_urls.push({ url: 'javascript:resolve_urs("' + urs.textContent + '");', name: 'URS: ' + urs.textContent });
+            
         }
+        var urslocator = citation.querySelector("pub-id[pub-id-type='urslocator'], ext-link[ext-link-type='urslocator']");
+        if (urslocator){
+            citationNode.citation_urls.push({ url: 'javascript:resolve_urs_locator("' + urs.textContent + '");', name: 'URS Locator: ' + urs.textContent });
+            
+        }        
         
       } else {
         console.error("FIXME: there is one of those 'mixed-citation' without any structure. Skipping ...", citation);
@@ -265,9 +271,16 @@ CustomConverter.Prototype = function () {
     anno.linktype = '';
 
     var extLinkType = element.getAttribute('ext-link-type') || '';
+
     if (type === "ext-link" && extLinkType === "urs") {
       //anno.url = el.getAttribute("xlink:href");
       anno.url = 'javascript:resolve_urs("' + element.getAttribute("xlink:href") + '");';
+      anno.linktype = 'urs'
+    }
+
+    if (type === "ext-link" && extLinkType === "urslocator") {
+      //anno.url = el.getAttribute("xlink:href");
+      anno.url = 'javascript:resolve_urs_locator("' + element.getAttribute("xlink:href") + '");';
       anno.linktype = 'urs'
     }
 

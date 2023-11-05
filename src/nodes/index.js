@@ -7,4 +7,5 @@ module.exports = {
     "strike": require("./strike"),
     "table": require("./table"),
     "link": require("./link"),
+    "citation": require("./citation"),
 };
