@@ -193,7 +193,7 @@ CustomConverter.Prototype = function () {
         }
         var urslocator = citation.querySelector("pub-id[pub-id-type='urslocator'], ext-link[ext-link-type='urslocator']");
         if (urslocator){
-            citationNode.citation_urls.push({ url: 'javascript:resolve_urs_locator("' + urs.textContent + '");', name: 'URS Locator: ' + urs.textContent });
+            citationNode.citation_urls.push({ url: 'javascript:resolve_urs_locator("' + urslocator.textContent + '");', name: 'Locator: ' + urslocator.textContent });
             
         }        
         
